@@ -22,11 +22,21 @@ import androidx.room.PrimaryKey
 /**
  * Entity data class represents a single row in the database.
  */
-@Entity(tableName = "items")
-data class Item(
+@Entity(tableName = "tareas")
+data class Tarea(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val name: String,
-    val price: Double,
-    val quantity: Int
+    val titulo: String,
+    val descripcion : String
+
+//    val idTipoTarea : Int ,
+//    val price: Double,
+//    val quantity: Int
+)
+@Entity(tableName = "tipotareas")
+data class TipoTarea(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val titulo: String,
+    val descripcion : String
 )
