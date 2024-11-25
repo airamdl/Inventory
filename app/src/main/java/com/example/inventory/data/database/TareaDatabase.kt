@@ -22,15 +22,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.inventory.data.Dao.TareaDao
 import com.example.inventory.data.entity.Tarea
+import com.example.inventory.data.entity.TipoTarea
 
 /**
  * Database class with a singleton Instance object.
  */
-@Database(entities = [Tarea::class], version = 1, exportSchema = false)
+@Database(entities = [Tarea::class, TipoTarea::class], version = 1, exportSchema = true)
 abstract class TareaDatabase : RoomDatabase() {
 
     abstract fun tareaDao(): TareaDao
-
+    abstract fun tipoTareaDao(): TipoTareaDao
     companion object {
         @Volatile
         private var Instance: TareaDatabase? = null
