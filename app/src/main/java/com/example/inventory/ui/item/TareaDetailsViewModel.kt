@@ -19,7 +19,7 @@ package com.example.inventory.ui.item
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.inventory.data.ItemsRepository
+import com.example.inventory.data.repository.TareasRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -32,24 +32,24 @@ import kotlinx.coroutines.launch
  */
 class ItemDetailsViewModel(
     savedStateHandle: SavedStateHandle,
-    private val itemsRepository: ItemsRepository,
+    private val tareasRepository: TareasRepository,
 ) : ViewModel() {
 
-    private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
+    private val tareaId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
 
     /**
      * Holds the item details ui state. The data is retrieved from [ItemsRepository] and mapped to
      * the UI state.
      */
-    val uiState: StateFlow<ItemDetailsUiState> =
-        itemsRepository.getItemStream(itemId)
+    val uiState: StateFlow<TareaDetailsUiState> =
+        tareasRepository.getTareaStream(tareaId)
             .filterNotNull()
             .map {
-                ItemDetailsUiState(outOfStock = it.quantity <= 0, itemDetails = it.toItemDetails())
+                TareaDetailsUiState(outOfStock = it.quantity <= 0, itemDetails = it.toItemDetails())
             }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-                initialValue = ItemDetailsUiState()
+                initialValue = TareaDetailsUiState()
             )
 
     /**
@@ -59,7 +59,7 @@ class ItemDetailsViewModel(
         viewModelScope.launch {
             val currentItem = uiState.value.itemDetails.toItem()
             if (currentItem.quantity > 0) {
-                itemsRepository.updateItem(currentItem.copy(quantity = currentItem.quantity - 1))
+                tareasRepository.updateTarea(currentItem.copy(quantity = currentItem.quantity - 1))
             }
         }
     }
@@ -67,8 +67,8 @@ class ItemDetailsViewModel(
     /**
      * Deletes the item from the [ItemsRepository]'s data source.
      */
-    suspend fun deleteItem() {
-        itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
+    suspend fun deleteTarea() {
+        tareasRepository.deleteTarea(uiState.value.itemDetails.toItem())
     }
 
     companion object {
@@ -79,7 +79,7 @@ class ItemDetailsViewModel(
 /**
  * UI state for ItemDetailsScreen
  */
-data class ItemDetailsUiState(
+data class TareaDetailsUiState(
     val outOfStock: Boolean = true,
     val itemDetails: ItemDetails = ItemDetails()
 )
