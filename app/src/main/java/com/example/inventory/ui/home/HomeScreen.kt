@@ -57,7 +57,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
-import com.example.inventory.data.Item
 import com.example.inventory.data.entity.Tarea
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.item.formatedPrice
@@ -120,7 +119,7 @@ fun HomeScreen(
 
 @Composable
 private fun HomeBody(
-    itemList: List<Item>,
+    itemList: List<Tarea>,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -149,8 +148,8 @@ private fun HomeBody(
 
 @Composable
 private fun InventoryList(
-    itemList: List<Item>,
-    onItemClick: (Item) -> Unit,
+    itemList: List<Tarea>,
+    onItemClick: (Tarea) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -158,11 +157,11 @@ private fun InventoryList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = itemList, key = { it.id }) { item ->
-            InventoryItem(item = item,
+        items(items = itemList, key = { it.id }) { tarea ->
+            InventoryItem(tarea = tarea,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onItemClick(item) })
+                    .clickable { onItemClick(tarea) })
         }
     }
 }
@@ -182,17 +181,27 @@ private fun InventoryItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = tarea.name,
+                    text = tarea.titulo,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = tarea.formatedPrice(),
+                    text = tarea.descripcion,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = tarea.id.toString(),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = tarea.idTipoTarea.toString(),
                     style = MaterialTheme.typography.titleMedium
                 )
             }
             Text(
-                text = stringResource(R.string.in_stock, tarea.quantity),
+                text = tarea,
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -204,7 +213,7 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Tarea(1, "Game", 100.0, 20), Tarea(2, "Pen", 200.0, 30), Tarea(3, "TV", 300.0, 50)
+            Tarea(1, "Game", "pasar la mazmorra 100.0", 20), Tarea(2, "Pen", 200.0, 30), Tarea(3, "TV", 300.0, 50)
         ), onItemClick = {})
     }
 }
@@ -222,7 +231,7 @@ fun HomeBodyEmptyListPreview() {
 fun InventoryItemPreview() {
     InventoryTheme {
         InventoryItem(
-            Item(1, "Game", 100.0, 20),
+            Tarea(1, "Game", "Pasar la Mazmorra 100.0", 20),
         )
     }
 }

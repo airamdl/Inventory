@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.inventory.data.InventoryDatabase
+import com.example.inventory.data.TareaDatabase
 import com.example.inventory.data.Item
 import com.example.inventory.data.Dao.TareaDao
 import kotlinx.coroutines.flow.first
@@ -37,33 +37,33 @@ import java.io.IOException
 class TareaDaoTest {
 
     private lateinit var tareaDao: TareaDao
-    private lateinit var inventoryDatabase: InventoryDatabase
-    private val item1 = Item(1, "Apples", 10.0, 20)
-    private val item2 = Item(2, "Bananas", 15.0, 97)
+    private lateinit var tareaDatabase: TareaDatabase
+    private val item1 = TareaDao(1, "Apples", 10.0, 20)
+    private val item2 = TareaDao(2, "Bananas", 15.0, 97)
 
     @Before
     fun createDb() {
         val context: Context = ApplicationProvider.getApplicationContext()
         // Using an in-memory database because the information stored here disappears when the
         // process is killed.
-        inventoryDatabase = Room.inMemoryDatabaseBuilder(context, InventoryDatabase::class.java)
+        tareaDatabase = Room.inMemoryDatabaseBuilder(context, TareaDatabase::class.java)
             // Allowing main thread queries, just for testing.
             .allowMainThreadQueries()
             .build()
-        tareaDao = inventoryDatabase.itemDao()
+        tareaDao = tareaDatabase.tareaDao()
     }
 
     @After
     @Throws(IOException::class)
     fun closeDb() {
-        inventoryDatabase.close()
+        tareaDatabase.close()
     }
 
     @Test
     @Throws(Exception::class)
     fun daoInsert_insertsItemIntoDB() = runBlocking {
         addOneItemToDb()
-        val allItems = tareaDao.getAllItems().first()
+        val allItems = tareaDao.getAllTareas().first()
         assertEquals(allItems[0], item1)
     }
 
@@ -71,7 +71,7 @@ class TareaDaoTest {
     @Throws(Exception::class)
     fun daoGetAllItems_returnsAllItemsFromDB() = runBlocking {
         addTwoItemsToDb()
-        val allItems = tareaDao.getAllItems().first()
+        val allItems = tareaDao.getAllTareas().first()
         assertEquals(allItems[0], item1)
         assertEquals(allItems[1], item2)
     }
@@ -81,7 +81,7 @@ class TareaDaoTest {
     @Throws(Exception::class)
     fun daoGetItem_returnsItemFromDB() = runBlocking {
         addOneItemToDb()
-        val item = tareaDao.getItem(1)
+        val item = tareaDao.getTarea(1)
         assertEquals(item.first(), item1)
     }
 

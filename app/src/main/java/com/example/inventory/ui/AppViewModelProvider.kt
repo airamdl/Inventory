@@ -22,7 +22,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.inventory.InventoryApplication
+import com.example.inventory.TareaApplication
 import com.example.inventory.ui.home.HomeViewModel
 import com.example.inventory.ui.item.ItemDetailsViewModel
 import com.example.inventory.ui.item.ItemEditViewModel
@@ -37,32 +37,32 @@ object AppViewModelProvider {
         initializer {
             ItemEditViewModel(
                 this.createSavedStateHandle(),
-                inventoryApplication().container.itemsRepository
+                inventoryApplication().container.tareasRepository
             )
         }
         // Initializer for ItemEntryViewModel
         initializer {
-            ItemEntryViewModel(inventoryApplication().container.itemsRepository)
+            ItemEntryViewModel(inventoryApplication().container.tareasRepository)
         }
 
         // Initializer for ItemDetailsViewModel
         initializer {
             ItemDetailsViewModel(
                 this.createSavedStateHandle(),
-                inventoryApplication().container.itemsRepository
+                inventoryApplication().container.tareasRepository
             )
         }
 
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel(inventoryApplication().container.itemsRepository)
+            HomeViewModel(inventoryApplication().container.tareasRepository)
         }
     }
 }
 
 /**
  * Extension function to queries for [Application] object and returns an instance of
- * [InventoryApplication].
+ * [TareaApplication].
  */
-fun CreationExtras.inventoryApplication(): InventoryApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)
+fun CreationExtras.inventoryApplication(): TareaApplication =
+    (this[AndroidViewModelFactory.APPLICATION_KEY] as TareaApplication)
