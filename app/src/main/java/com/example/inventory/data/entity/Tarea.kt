@@ -14,29 +14,37 @@
  * limitations under the License.
  */
 
-package com.example.inventory.data
+package com.example.inventory.data.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 
 /**
  * Entity data class represents a single row in the database.
  */
-@Entity(tableName = "tareas")
+
+
+//usando room relacionamos las entidades
+@Entity(tableName = "tareas", foreignKeys = [
+    ForeignKey(
+        entity = TipoTarea::class,
+        parentColumns = ["id"],
+        childColumns = ["idTipoTarea"],
+        onDelete = ForeignKey.CASCADE
+    )
+])
 data class Tarea(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val titulo: String,
-    val descripcion : String
+    val descripcion: String,
+    val idTipoTarea: Int
+    //@Relation(parentColumn = "id", entityColumn = "idTipoTarea")
 
-//    val idTipoTarea : Int ,
-//    val price: Double,
-//    val quantity: Int
 )
-@Entity(tableName = "tipotareas")
-data class TipoTarea(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val titulo: String,
-    val descripcion : String
-)
+
+
+

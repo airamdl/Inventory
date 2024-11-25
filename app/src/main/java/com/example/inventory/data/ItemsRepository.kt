@@ -16,6 +16,7 @@
 
 package com.example.inventory.data
 
+import com.example.inventory.data.entity.Tarea
 import kotlinx.coroutines.flow.Flow
 
 /**
