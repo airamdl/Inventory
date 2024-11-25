@@ -137,8 +137,8 @@ fun ItemInputForm(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = tareaDetails.name,
-            onValueChange = { onValueChange(tareaDetails.copy(name = it)) },
+            value = tareaDetails.titulo,
+            onValueChange = { onValueChange(tareaDetails.copy(titulo = it)) },
             label = { Text(stringResource(R.string.item_name_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
