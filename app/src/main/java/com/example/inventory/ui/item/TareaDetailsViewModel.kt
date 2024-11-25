@@ -45,7 +45,7 @@ class ItemDetailsViewModel(
         tareasRepository.getTareaStream(tareaId)
             .filterNotNull()
             .map {
-                TareaDetailsUiState(outOfStock = it.quantity <= 0, itemDetails = it.toItemDetails())
+                TareaDetailsUiState(outOfStock = it.quantity <= 0, tareaDetails = it.toItemDetails())
             }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
@@ -57,7 +57,7 @@ class ItemDetailsViewModel(
      */
     fun reduceQuantityByOne() {
         viewModelScope.launch {
-            val currentItem = uiState.value.itemDetails.toItem()
+            val currentItem = uiState.value.tareaDetails.toItem()
             if (currentItem.quantity > 0) {
                 tareasRepository.updateTarea(currentItem.copy(quantity = currentItem.quantity - 1))
             }
@@ -68,7 +68,7 @@ class ItemDetailsViewModel(
      * Deletes the item from the [ItemsRepository]'s data source.
      */
     suspend fun deleteTarea() {
-        tareasRepository.deleteTarea(uiState.value.itemDetails.toItem())
+        tareasRepository.deleteTarea(uiState.value.tareaDetails.toItem())
     }
 
     companion object {
@@ -81,5 +81,5 @@ class ItemDetailsViewModel(
  */
 data class TareaDetailsUiState(
     val outOfStock: Boolean = true,
-    val itemDetails: ItemDetails = ItemDetails()
+    val tareaDetails: TareaDetails = TareaDetails()
 )

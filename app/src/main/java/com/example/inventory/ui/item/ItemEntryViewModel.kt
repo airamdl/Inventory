@@ -20,40 +20,40 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.inventory.data.Item
-import com.example.inventory.data.ItemsRepository
+import com.example.inventory.data.entity.Tarea
+import com.example.inventory.data.repository.TareasRepository
 import java.text.NumberFormat
 
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
+class ItemEntryViewModel(private val tareasRepository: TareasRepository) : ViewModel() {
 
     /**
      * Holds current item ui state
      */
-    var itemUiState by mutableStateOf(ItemUiState())
+    var tareaUiState by mutableStateOf(TareaUiState())
         private set
 
     /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
+     * Updates the [tareaUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
-    fun updateUiState(itemDetails: ItemDetails) {
-        itemUiState =
-            ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+    fun updateUiState(tareaDetails: TareaDetails) {
+        tareaUiState =
+            TareaUiState(tareaDetails = tareaDetails, isEntryValid = validateInput(tareaDetails))
     }
 
     /**
      * Inserts an [Item] in the Room database
      */
-    suspend fun saveItem() {
+    suspend fun saveTarea() {
         if (validateInput()) {
-            itemsRepository.insertItem(itemUiState.itemDetails.toItem())
+            tareasRepository.insertTarea(tareaUiState.tareaDetails.toItem())
         }
     }
 
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
+    private fun validateInput(uiState: TareaDetails = tareaUiState.tareaDetails): Boolean {
         return with(uiState) {
             name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
         }
@@ -63,48 +63,48 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewMod
 /**
  * Represents Ui State for an Item.
  */
-data class ItemUiState(
-    val itemDetails: ItemDetails = ItemDetails(),
+data class TareaUiState(
+    val tareaDetails: TareaDetails = TareaDetails(),
     val isEntryValid: Boolean = false
 )
 
-data class ItemDetails(
+data class TareaDetails(
     val id: Int = 0,
-    val name: String = "",
-    val price: String = "",
-    val quantity: String = "",
+    val titulo: String = "",
+    val descripcion: String = "",
+    val idTipoTarea: Int = 0,
 )
 
 /**
- * Extension function to convert [ItemUiState] to [Item]. If the value of [ItemDetails.price] is
+ * Extension function to convert [TareaUiState] to [Item]. If the value of [TareaDetails.price] is
  * not a valid [Double], then the price will be set to 0.0. Similarly if the value of
- * [ItemUiState] is not a valid [Int], then the quantity will be set to 0
+ * [TareaUiState] is not a valid [Int], then the quantity will be set to 0
  */
-fun ItemDetails.toItem(): Item = Item(
+fun TareaDetails.toItem(): Tarea = Tarea(
     id = id,
-    name = name,
-    price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0
+    titulo = titulo,
+    descripcion = descripcion,
+    idTipoTarea = idTipoTarea
 )
 
-fun Item.formatedPrice(): String {
-    return NumberFormat.getCurrencyInstance().format(price)
-}
+//fun Tarea.formatedPrice(): String {
+//    return NumberFormat.getCurrencyInstance().format(price)
+//}
 
 /**
- * Extension function to convert [Item] to [ItemUiState]
+ * Extension function to convert [Item] to [TareaUiState]
  */
-fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
-    itemDetails = this.toItemDetails(),
+fun Tarea.toItemUiState(isEntryValid: Boolean = false): TareaUiState = TareaUiState(
+    tareaDetails = this.toItemDetails(),
     isEntryValid = isEntryValid
 )
 
 /**
- * Extension function to convert [Item] to [ItemDetails]
+ * Extension function to convert [Item] to [TareaDetails]
  */
-fun Item.toItemDetails(): ItemDetails = ItemDetails(
+fun Tarea.toItemDetails(): TareaDetails = TareaDetails(
     id = id,
-    name = name,
-    price = price.toString(),
-    quantity = quantity.toString()
+    titulo = titulo,
+    descripcion = descripcion,
+    idTipoTarea = idTipoTarea
 )

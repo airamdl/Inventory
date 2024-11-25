@@ -74,7 +74,7 @@ fun ItemEntryScreen(
         }
     ) { innerPadding ->
         ItemEntryBody(
-            itemUiState = viewModel.itemUiState,
+            tareaUiState = viewModel.tareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
@@ -82,7 +82,7 @@ fun ItemEntryScreen(
                 // change occurs, the Activity will be recreated and the rememberCoroutineScope will
                 // be cancelled - since the scope is bound to composition.
                 coroutineScope.launch {
-                    viewModel.saveItem()
+                    viewModel.saveTarea()
                     navigateBack()
                 }
             },
@@ -100,8 +100,8 @@ fun ItemEntryScreen(
 
 @Composable
 fun ItemEntryBody(
-    itemUiState: ItemUiState,
-    onItemValueChange: (ItemDetails) -> Unit,
+    tareaUiState: TareaUiState,
+    onItemValueChange: (TareaDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -110,13 +110,13 @@ fun ItemEntryBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large))
     ) {
         ItemInputForm(
-            itemDetails = itemUiState.itemDetails,
+            tareaDetails = tareaUiState.tareaDetails,
             onValueChange = onItemValueChange,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSaveClick,
-            enabled = itemUiState.isEntryValid,
+            enabled = tareaUiState.isEntryValid,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -127,9 +127,9 @@ fun ItemEntryBody(
 
 @Composable
 fun ItemInputForm(
-    itemDetails: ItemDetails,
+    tareaDetails: TareaDetails,
     modifier: Modifier = Modifier,
-    onValueChange: (ItemDetails) -> Unit = {},
+    onValueChange: (TareaDetails) -> Unit = {},
     enabled: Boolean = true
 ) {
     Column(
@@ -137,8 +137,8 @@ fun ItemInputForm(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = itemDetails.name,
-            onValueChange = { onValueChange(itemDetails.copy(name = it)) },
+            value = tareaDetails.name,
+            onValueChange = { onValueChange(tareaDetails.copy(name = it)) },
             label = { Text(stringResource(R.string.item_name_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -150,8 +150,8 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = itemDetails.price,
-            onValueChange = { onValueChange(itemDetails.copy(price = it)) },
+            value = tareaDetails.price,
+            onValueChange = { onValueChange(tareaDetails.copy(price = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             label = { Text(stringResource(R.string.item_price_req)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -165,8 +165,8 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = itemDetails.quantity,
-            onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
+            value = tareaDetails.quantity,
+            onValueChange = { onValueChange(tareaDetails.copy(quantity = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.quantity_req)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -191,8 +191,8 @@ fun ItemInputForm(
 @Composable
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
-        ItemEntryBody(itemUiState = ItemUiState(
-            ItemDetails(
+        ItemEntryBody(tareaUiState = TareaUiState(
+            TareaDetails(
                 name = "Item name", price = "10.00", quantity = "5"
             )
         ), onItemValueChange = {}, onSaveClick = {})

@@ -64,7 +64,7 @@ fun ItemEditScreen(
         modifier = modifier
     ) { innerPadding ->
         ItemEntryBody(
-            itemUiState = viewModel.itemUiState,
+            tareaUiState = viewModel.tareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled

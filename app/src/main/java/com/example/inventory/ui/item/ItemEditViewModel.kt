@@ -38,14 +38,14 @@ class ItemEditViewModel(
     /**
      * Holds current item ui state
      */
-    var itemUiState by mutableStateOf(ItemUiState())
+    var tareaUiState by mutableStateOf(TareaUiState())
         private set
 
     private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
     init {
         viewModelScope.launch {
-            itemUiState = itemsRepository.getItemStream(itemId)
+            tareaUiState = itemsRepository.getItemStream(itemId)
                 .filterNotNull()
                 .first()
                 .toItemUiState(true)
@@ -56,21 +56,21 @@ class ItemEditViewModel(
      * Update the item in the [ItemsRepository]'s data source
      */
     suspend fun updateItem() {
-        if (validateInput(itemUiState.itemDetails)) {
-            itemsRepository.updateItem(itemUiState.itemDetails.toItem())
+        if (validateInput(tareaUiState.tareaDetails)) {
+            itemsRepository.updateItem(tareaUiState.tareaDetails.toItem())
         }
     }
 
     /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
+     * Updates the [tareaUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
-    fun updateUiState(itemDetails: ItemDetails) {
-        itemUiState =
-            ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+    fun updateUiState(tareaDetails: TareaDetails) {
+        tareaUiState =
+            TareaUiState(tareaDetails = tareaDetails, isEntryValid = validateInput(tareaDetails))
     }
 
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
+    private fun validateInput(uiState: TareaDetails = tareaUiState.tareaDetails): Boolean {
         return with(uiState) {
             name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
         }

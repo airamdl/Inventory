@@ -93,7 +93,7 @@ fun ItemDetailsScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditItem(uiState.value.itemDetails.id) },
+                onClick = { navigateToEditItem(uiState.value.tareaDetails.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .padding(
@@ -146,7 +146,7 @@ private fun ItemDetailsBody(
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
         ItemDetails(
-            item = tareaDetailsUiState.itemDetails.toItem(), modifier = Modifier.fillMaxWidth()
+            item = tareaDetailsUiState.tareaDetails.toItem(), modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSellItem,
@@ -264,7 +264,7 @@ private fun DeleteConfirmationDialog(
 fun ItemDetailsScreenPreview() {
     InventoryTheme {
         ItemDetailsBody(TareaDetailsUiState(
-            outOfStock = true, itemDetails = ItemDetails(1, "Pen", "$100", "10")
+            outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", "10")
         ), onSellItem = {}, onDelete = {})
     }
 }
