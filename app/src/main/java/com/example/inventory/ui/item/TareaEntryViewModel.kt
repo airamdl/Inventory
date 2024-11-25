@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.inventory.data.entity.Tarea
 import com.example.inventory.data.repository.TareasRepository
-import java.text.NumberFormat
 
 /**
  * ViewModel to validate and insert items in the Room database.
@@ -55,7 +54,7 @@ class ItemEntryViewModel(private val tareasRepository: TareasRepository) : ViewM
 
     private fun validateInput(uiState: TareaDetails = tareaUiState.tareaDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            titulo.isNotBlank() && descripcion.isNotBlank() && idTipoTarea.toString().isNotBlank()
         }
     }
 }
