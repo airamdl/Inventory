@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.inventory.data.TareaDatabase
+import com.example.inventory.data.database.TareaDatabase
 import com.example.inventory.data.Item
 import com.example.inventory.data.Dao.TareaDao
 import kotlinx.coroutines.flow.first

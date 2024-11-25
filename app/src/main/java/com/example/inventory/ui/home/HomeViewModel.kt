@@ -18,7 +18,7 @@ package com.example.inventory.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.inventory.data.TareasRepository
+import com.example.inventory.data.repository.TareasRepository
 import com.example.inventory.data.entity.Tarea
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

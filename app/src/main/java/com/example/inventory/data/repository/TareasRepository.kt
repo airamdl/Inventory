@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.data
+package com.example.inventory.data.repository
 
 import com.example.inventory.data.entity.Tarea
 import kotlinx.coroutines.flow.Flow

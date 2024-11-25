@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.data
+package com.example.inventory.data.database
 
 import android.content.Context
 import androidx.room.Database
