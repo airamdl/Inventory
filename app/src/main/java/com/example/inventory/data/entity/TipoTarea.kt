@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 
 
-class TipoTarea {
+
     @Entity(tableName = "tipotareas")
     data class TipoTarea(
         @PrimaryKey(autoGenerate = true)
@@ -15,4 +15,4 @@ class TipoTarea {
         val descripcion : String
     )
 
-}
+
