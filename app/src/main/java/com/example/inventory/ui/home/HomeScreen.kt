@@ -201,7 +201,7 @@ private fun InventoryItem(
                 )
             }
             Text(
-                text = tarea,
+                text = Text("aaa"),
                 style = MaterialTheme.typography.titleMedium
             )
         }
