@@ -26,13 +26,13 @@ interface AppContainer {
 }
 
 /**
- * [AppContainer] implementation that provides instance of [OfflineItemsRepository]
+ * [AppContainer] implementation that provides instance of [OfflineTareasRepository]
  */
 class AppDataContainer(private val context: Context) : AppContainer {
     /**
-     * Implementation for [ItemsRepository]
+     * Implementation for [TareasRepository]
      */
     override val tareasRepository: TareasRepository by lazy {
-        OfflineItemsRepository(TareaDatabase.getDatabase(context).tareaDao())
+        OfflineTareasRepository(TareaDatabase.getDatabase(context).tareaDao())
     }
 }

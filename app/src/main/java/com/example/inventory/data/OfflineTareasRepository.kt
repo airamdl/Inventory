@@ -20,7 +20,7 @@ import com.example.inventory.data.Dao.TareaDao
 import com.example.inventory.data.entity.Tarea
 import kotlinx.coroutines.flow.Flow
 
-class OfflineItemsRepository(private val tareaDao: TareaDao) : TareasRepository {
+class OfflineTareasRepository(private val tareaDao: TareaDao) : TareasRepository {
     override fun getAllTareasStream(): Flow<List<Tarea>> = tareaDao.getAllTareas()
 
     override fun getTareaStream(id: Int): Flow<Tarea?> = tareaDao.getTarea(id)
