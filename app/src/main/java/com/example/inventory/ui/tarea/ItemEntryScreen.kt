@@ -162,9 +162,11 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = tareaDetails.idTipoTarea,
-            onValueChange = { onValueChange(tareaDetails.copy(quantity = it)) },
-            label = { Text(stringResource(R.string.quantity_req)) },
+            value = tareaDetails.idTipoTarea.toString(),
+            onValueChange = { newValue ->
+                val newIdTipoTarea = newValue.toIntOrNull() ?: tareaDetails.idTipoTarea
+                onValueChange(tareaDetails.copy(idTipoTarea = newIdTipoTarea)) },
+            label = { Text(stringResource(R.string.tarea_id_tipo_tarea_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -189,7 +191,7 @@ private fun ItemEntryScreenPreview() {
     InventoryTheme {
         ItemEntryBody(tareaUiState = TareaUiState(
             TareaDetails(
-                name = "Item name", price = "10.00", quantity = "5"
+                titulo = "titulo tarea", descripcion = "10.00", idTipoTarea = 5
             )
         ), onItemValueChange = {}, onSaveClick = {})
     }

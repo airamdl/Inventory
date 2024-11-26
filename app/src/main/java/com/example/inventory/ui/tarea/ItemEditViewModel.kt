@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.inventory.data.ItemsRepository
+import com.example.inventory.data.repository.TareasRepository
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
  */
 class ItemEditViewModel(
     savedStateHandle: SavedStateHandle,
-    private val itemsRepository: ItemsRepository
+    private val tareasRepository: TareasRepository
 ) : ViewModel() {
 
     /**
@@ -41,11 +41,11 @@ class ItemEditViewModel(
     var tareaUiState by mutableStateOf(TareaUiState())
         private set
 
-    private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
+    private val tareaId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
     init {
         viewModelScope.launch {
-            tareaUiState = itemsRepository.getItemStream(itemId)
+            tareaUiState = tareasRepository.getTareaStream(tareaId)
                 .filterNotNull()
                 .first()
                 .toItemUiState(true)
@@ -57,7 +57,7 @@ class ItemEditViewModel(
      */
     suspend fun updateItem() {
         if (validateInput(tareaUiState.tareaDetails)) {
-            itemsRepository.updateItem(tareaUiState.tareaDetails.toItem())
+            tareasRepository.updateTarea(tareaUiState.tareaDetails.toItem())
         }
     }
 
@@ -72,7 +72,7 @@ class ItemEditViewModel(
 
     private fun validateInput(uiState: TareaDetails = tareaUiState.tareaDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            titulo.isNotBlank() && descripcion.isNotBlank() && idTipoTarea.toString().isNotBlank()
         }
     }
 }

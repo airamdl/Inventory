@@ -112,7 +112,7 @@ fun ItemDetailsScreen(
     ) { innerPadding ->
         TareaDetailsBody(
             tareaDetailsUiState = uiState.value,
-            onSellItem = { viewModel.reduceQuantityByOne() },
+            //onSellItem = { viewModel},
             onDelete = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
                 // and the item may not be deleted from the Database. This is because when config
@@ -137,7 +137,7 @@ fun ItemDetailsScreen(
 @Composable
 private fun TareaDetailsBody(
     tareaDetailsUiState: TareaDetailsUiState,
-    onSellItem: () -> Unit,
+    //onSellItem: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -149,14 +149,14 @@ private fun TareaDetailsBody(
         TareaDetails(
             tarea = tareaDetailsUiState.tareaDetails.toItem(), modifier = Modifier.fillMaxWidth()
         )
-        Button(
-            onClick = onSellItem,
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.small,
-            enabled = !tareaDetailsUiState.outOfStock
-        ) {
-            Text(stringResource(R.string.sell))
-        }
+//        Button(
+//            onClick = onSellItem,
+//            modifier = Modifier.fillMaxWidth(),
+//            shape = MaterialTheme.shapes.small,
+//            enabled = !tareaDetailsUiState.outOfStock
+//        ) {
+//            Text(stringResource(R.string.sell))
+//        }
         OutlinedButton(
             onClick = { deleteConfirmationRequired = true },
             shape = MaterialTheme.shapes.small,
@@ -266,6 +266,7 @@ fun ItemDetailsScreenPreview() {
     InventoryTheme {
         TareaDetailsBody(TareaDetailsUiState(
             outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", 10)
-        ), onSellItem = {}, onDelete = {})
+        ), //onSellItem = {},
+            onDelete = {})
     }
 }

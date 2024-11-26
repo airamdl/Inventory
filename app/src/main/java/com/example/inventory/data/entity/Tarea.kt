@@ -16,11 +16,9 @@
 
 package com.example.inventory.data.entity
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 
 /**
  * Entity data class represents a single row in the database.

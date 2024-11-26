@@ -14,18 +14,18 @@
   ~ limitations under the License.
   -->
 <resources>
-    <string name="app_name">Inventory</string>
-    <string name="attention">Attention</string>
+    <string name="app_name">Gestor de Tareas</string>
+    <string name="attention">Atención</string>
     <string name="back_button">Back</string>
     <string name="delete">Delete</string>
-    <string name="delete_question">Are you sure you want to delete?</string>
-    <string name="no_item_description">Oops!\nNo items in the inventory.\nTap + to add.</string>
-    <string name="edit_tarea_title">Edit Tarea</string>
+    <string name="delete_question">Estas seguro de que quieres eliminar?</string>
+    <string name="no_item_description">Oops!\nNo hay tareas creadas.\nTap + para añadir una nueva.</string>
+    <string name="edit_tarea_title">Editar Tarea</string>
     <string name="tarea">Tarea</string>
-    <string name="tarea_detail_title">Tarea Details</string>
-    <string name="tarea_entry_title">Add Tarea</string>
-    <string name="tarea_titulo_req">Tarea Titulo*</string>
-    <string name="tarea_descipcion_req">Tarea Descripcion*</string>
+    <string name="tarea_detail_title">Detalles de Tarea </string>
+    <string name="tarea_entry_title">Añadir Tarea</string>
+    <string name="tarea_titulo_req">Titulo de Tarea *</string>
+    <string name="tarea_descipcion_req">Descripcion de Tarea *</string>
     <string name="tarea_id_tipo_tarea_req">Tarea idTipoTarea*</string>
     <string name="no">No</string>
     <string name="titulo">Titulo</string>
