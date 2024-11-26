@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package com.example.inventory.ui.tarea
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -57,9 +57,9 @@ class ItemDetailsViewModel(
      */
     fun reduceQuantityByOne() {
         viewModelScope.launch {
-            val currentItem = uiState.value.tareaDetails.toItem()
-            if (currentItem.quantity > 0) {
-                tareasRepository.updateTarea(currentItem.copy(quantity = currentItem.quantity - 1))
+            val currentTarea = uiState.value.tareaDetails.toItem()
+            if (currentTarea.quantity > 0) {
+                tareasRepository.updateTarea(currentTarea.copy(quantity = currentTarea.quantity - 1))
             }
         }
     }

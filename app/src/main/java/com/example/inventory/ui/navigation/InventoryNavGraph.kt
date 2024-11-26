@@ -25,12 +25,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.inventory.ui.home.HomeDestination
 import com.example.inventory.ui.home.HomeScreen
-import com.example.inventory.ui.item.ItemDetailsDestination
-import com.example.inventory.ui.item.ItemDetailsScreen
-import com.example.inventory.ui.item.ItemEditDestination
-import com.example.inventory.ui.item.ItemEditScreen
-import com.example.inventory.ui.item.ItemEntryDestination
-import com.example.inventory.ui.item.ItemEntryScreen
+import com.example.inventory.ui.tarea.ItemDetailsDestination
+import com.example.inventory.ui.tarea.ItemDetailsScreen
+import com.example.inventory.ui.tarea.ItemEditDestination
+import com.example.inventory.ui.tarea.ItemEditScreen
+import com.example.inventory.ui.tarea.ItemEntryDestination
+import com.example.inventory.ui.tarea.ItemEntryScreen
 
 /**
  * Provides Navigation graph for the application.

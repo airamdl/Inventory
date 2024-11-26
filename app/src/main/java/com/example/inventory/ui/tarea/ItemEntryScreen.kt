@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package com.example.inventory.ui.tarea
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
@@ -51,8 +49,8 @@ import java.util.Currency
 import java.util.Locale
 
 object ItemEntryDestination : NavigationDestination {
-    override val route = "item_entry"
-    override val titleRes = R.string.item_entry_title
+    override val route = "tarea_entry"
+    override val titleRes = R.string.tarea_entry_title
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -139,7 +137,7 @@ fun ItemInputForm(
         OutlinedTextField(
             value = tareaDetails.titulo,
             onValueChange = { onValueChange(tareaDetails.copy(titulo = it)) },
-            label = { Text(stringResource(R.string.item_name_req)) },
+            label = { Text(stringResource(R.string.tarea_titulo_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -150,10 +148,9 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = tareaDetails.price,
-            onValueChange = { onValueChange(tareaDetails.copy(price = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            label = { Text(stringResource(R.string.item_price_req)) },
+            value = tareaDetails.descripcion,
+            onValueChange = { onValueChange(tareaDetails.copy(descripcion = it)) },
+            label = { Text(stringResource(R.string.tarea_descipcion_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -165,9 +162,8 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = tareaDetails.quantity,
+            value = tareaDetails.idTipoTarea,
             onValueChange = { onValueChange(tareaDetails.copy(quantity = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.quantity_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,

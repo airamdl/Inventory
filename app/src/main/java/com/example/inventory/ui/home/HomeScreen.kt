@@ -59,7 +59,6 @@ import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
 import com.example.inventory.data.entity.Tarea
 import com.example.inventory.ui.AppViewModelProvider
-import com.example.inventory.ui.item.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
 
@@ -103,7 +102,7 @@ fun HomeScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.item_entry_title)
+                    contentDescription = stringResource(R.string.tarea_entry_title)
                 )
             }
         },
@@ -199,11 +198,12 @@ private fun InventoryItem(
                     text = tarea.idTipoTarea.toString(),
                     style = MaterialTheme.typography.titleMedium
                 )
+
             }
-            Text(
-                text = Text("aaa"),
-                style = MaterialTheme.typography.titleMedium
-            )
+//            Text(
+//                Text("aaaaa"),
+//                style = MaterialTheme.typography.titleMedium
+//            )
         }
     }
 }
@@ -213,7 +213,7 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Tarea(1, "Game", "pasar la mazmorra 100.0", 20), Tarea(2, "Pen", 200.0, 30), Tarea(3, "TV", 300.0, 50)
+            Tarea(1, "Game", "pasar la mazmorra 100.0", 20), Tarea(2, "Pen", "rin", 30), Tarea(3, "TV", "300.0", 50)
         ), onItemClick = {})
     }
 }

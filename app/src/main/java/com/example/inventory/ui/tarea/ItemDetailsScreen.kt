@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package com.example.inventory.ui.tarea
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +60,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
-import com.example.inventory.data.Item
+import com.example.inventory.data.entity.Tarea
+
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
@@ -68,7 +69,7 @@ import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
     override val route = "item_details"
-    override val titleRes = R.string.item_detail_title
+    override val titleRes = R.string.tarea_detail_title
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
@@ -103,13 +104,13 @@ fun ItemDetailsScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.edit_item_title),
+                    contentDescription = stringResource(R.string.edit_tarea_title),
                 )
             }
         },
         modifier = modifier,
     ) { innerPadding ->
-        ItemDetailsBody(
+        TareaDetailsBody(
             tareaDetailsUiState = uiState.value,
             onSellItem = { viewModel.reduceQuantityByOne() },
             onDelete = {
@@ -134,7 +135,7 @@ fun ItemDetailsScreen(
 }
 
 @Composable
-private fun ItemDetailsBody(
+private fun TareaDetailsBody(
     tareaDetailsUiState: TareaDetailsUiState,
     onSellItem: () -> Unit,
     onDelete: () -> Unit,
@@ -145,8 +146,8 @@ private fun ItemDetailsBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
-        ItemDetails(
-            item = tareaDetailsUiState.tareaDetails.toItem(), modifier = Modifier.fillMaxWidth()
+        TareaDetails(
+            tarea = tareaDetailsUiState.tareaDetails.toItem(), modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSellItem,
@@ -178,8 +179,8 @@ private fun ItemDetailsBody(
 
 
 @Composable
-fun ItemDetails(
-    item: Item, modifier: Modifier = Modifier
+fun TareaDetails(
+    tarea: Tarea, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier, colors = CardDefaults.cardColors(
@@ -193,9 +194,9 @@ fun ItemDetails(
                 .padding(dimensionResource(id = R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
-            ItemDetailsRow(
-                labelResID = R.string.item,
-                itemDetail = item.name,
+            TareaDetailsRow(
+                labelResID = R.string.tarea,
+                itemDetail = tarea.titulo,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -203,9 +204,9 @@ fun ItemDetails(
                     )
                 )
             )
-            ItemDetailsRow(
-                labelResID = R.string.quantity_in_stock,
-                itemDetail = item.quantity.toString(),
+            TareaDetailsRow(
+                labelResID = R.string.descripcion,
+                itemDetail = tarea.descripcion,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -213,9 +214,9 @@ fun ItemDetails(
                     )
                 )
             )
-            ItemDetailsRow(
-                labelResID = R.string.price,
-                itemDetail = item.formatedPrice(),
+            TareaDetailsRow(
+                labelResID = R.string.id_tipo_tarea,
+                itemDetail = tarea.idTipoTarea.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -229,7 +230,7 @@ fun ItemDetails(
 }
 
 @Composable
-private fun ItemDetailsRow(
+private fun TareaDetailsRow(
     @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
@@ -263,8 +264,8 @@ private fun DeleteConfirmationDialog(
 @Composable
 fun ItemDetailsScreenPreview() {
     InventoryTheme {
-        ItemDetailsBody(TareaDetailsUiState(
-            outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", "10")
+        TareaDetailsBody(TareaDetailsUiState(
+            outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", 10)
         ), onSellItem = {}, onDelete = {})
     }
 }
