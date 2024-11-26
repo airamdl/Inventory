@@ -40,8 +40,8 @@ import kotlinx.coroutines.launch
 object ItemEditDestination : NavigationDestination {
     override val route = "item_edit"
     override val titleRes = R.string.edit_tarea_title
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+    const val tareaIdArg = "tareaId"
+    val routeWithArgs = "$route/{$tareaIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -41,7 +41,7 @@ class ItemEditViewModel(
     var tareaUiState by mutableStateOf(TareaUiState())
         private set
 
-    private val tareaId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
+    private val tareaId: Int = checkNotNull(savedStateHandle[ItemEditDestination.tareaIdArg])
 
     init {
         viewModelScope.launch {
