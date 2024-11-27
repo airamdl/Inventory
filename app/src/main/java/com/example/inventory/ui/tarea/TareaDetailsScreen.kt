@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -53,15 +52,15 @@ import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
-    override val route = "item_details"
+    override val route = "tarea_details"
     override val titleRes = R.string.tarea_detail_title
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+    const val tareaIdArg = "tareaId"
+    val routeWithArgs = "$route/{$tareaIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemDetailsScreen(
+fun TareaDetailsScreen(
     navigateToEditItem: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -250,7 +249,7 @@ private fun DeleteConfirmationDialog(
 fun ItemDetailsScreenPreview() {
     InventoryTheme {
         TareaDetailsBody(TareaDetailsUiState(
-            outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", 10)
+            //outOfStock = true, tipoTareaDetails = TareaDetails(1, "Pen", "$100", 10)
         ), //onSellItem = {},
             onDelete = {})
     }

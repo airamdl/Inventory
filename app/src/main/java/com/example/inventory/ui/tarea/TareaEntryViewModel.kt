@@ -38,9 +38,9 @@ class ItemEntryViewModel(private val tareasRepository: TareasRepository) : ViewM
      * Updates the [tareaUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
-    fun updateUiState(tareaDetails: TareaDetails) {
+    fun updateUiState(tipoTareaDetails: TareaDetails) {
         tareaUiState =
-            TareaUiState(tareaDetails = tareaDetails, isEntryValid = validateInput(tareaDetails))
+            TareaUiState(tareaDetails = tipoTareaDetails, isEntryValid = validateInput(tipoTareaDetails))
     }
 
     /**

@@ -65,9 +65,9 @@ class TipoTareaEditViewModel(
      * Updates the [tipoTareaUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
-    fun updateUiState(tareaDetails: TareaDetails) {
+    fun updateUiState(tipoTareaDetails: TareaDetails) {
         tipoTareaUiState =
-            TareaUiState(tareaDetails = tareaDetails, isEntryValid = validateInput(tareaDetails))
+            TareaUiState(tareaDetails = tipoTareaDetails, isEntryValid = validateInput(tipoTareaDetails))
     }
 
     private fun validateInput(uiState: TareaDetails = tipoTareaUiState.tareaDetails): Boolean {

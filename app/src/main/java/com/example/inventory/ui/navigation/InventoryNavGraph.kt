@@ -26,7 +26,7 @@ import androidx.navigation.navArgument
 import com.example.inventory.ui.home.HomeDestination
 import com.example.inventory.ui.home.HomeScreen
 import com.example.inventory.ui.tarea.ItemDetailsDestination
-import com.example.inventory.ui.tarea.ItemDetailsScreen
+import com.example.inventory.ui.tarea.TareaDetailsScreen
 import com.example.inventory.ui.tarea.ItemEditDestination
 import com.example.inventory.ui.tarea.TareaEditScreen
 import com.example.inventory.ui.tarea.ItemEntryDestination
@@ -61,11 +61,11 @@ fun InventoryNavHost(
         }
         composable(
             route = ItemDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(ItemDetailsDestination.itemIdArg) {
+            arguments = listOf(navArgument(ItemDetailsDestination.tareaIdArg) {
                 type = NavType.IntType
             })
         ) {
-            ItemDetailsScreen(
+            TareaDetailsScreen(
                 navigateToEditItem = { navController.navigate("${ItemEditDestination.route}/$it") },
                 navigateBack = { navController.navigateUp() }
             )
