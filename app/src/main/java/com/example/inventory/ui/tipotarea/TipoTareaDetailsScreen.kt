@@ -1,5 +1,4 @@
-
-package com.example.inventory.ui.tarea
+package com.example.inventory.ui.tipotarea
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +45,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
 import com.example.inventory.data.entity.Tarea
+import com.example.inventory.data.entity.TipoTarea
 
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
@@ -53,9 +53,9 @@ import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
 object ItemDetailsDestination : NavigationDestination {
-    override val route = "item_details"
+    override val route = "tipo_tarea_details"
     override val titleRes = R.string.tarea_detail_title
-    const val itemIdArg = "itemId"
+    const val itemIdArg = "tipoTareaId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
@@ -65,21 +65,21 @@ fun ItemDetailsScreen(
     navigateToEditItem: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ItemDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: TipoTareaDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val uiState = viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             InventoryTopAppBar(
-                title = stringResource(ItemDetailsDestination.titleRes),
+                title = stringResource(TipoTareaDetailsDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditItem(uiState.value.tareaDetails.id) },
+                onClick = { navigateToEditItem(uiState.value.TipoTareaDetails.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .padding(
@@ -96,7 +96,7 @@ fun ItemDetailsScreen(
         modifier = modifier,
     ) { innerPadding ->
         TareaDetailsBody(
-            tareaDetailsUiState = uiState.value,
+            TipoTareaDetailsUiState = uiState.value,
             //onSellItem = { viewModel},
             onDelete = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
@@ -121,7 +121,7 @@ fun ItemDetailsScreen(
 
 @Composable
 private fun TareaDetailsBody(
-    tareaDetailsUiState: TareaDetailsUiState,
+    TipoTareaDetailsUiState: TipoTareaDetailsUiState,
     //onSellItem: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
@@ -164,8 +164,8 @@ private fun TareaDetailsBody(
 
 
 @Composable
-fun TareaDetails(
-    tarea: Tarea, modifier: Modifier = Modifier
+fun TipoTareaDetails(
+    tipoTarea: TipoTarea, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier, colors = CardDefaults.cardColors(
@@ -179,9 +179,9 @@ fun TareaDetails(
                 .padding(dimensionResource(id = R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
-            TareaDetailsRow(
+            TipoTareaDetailsRow(
                 labelResID = R.string.tarea,
-                itemDetail = tarea.titulo,
+                tipoTareaDetail = tipoTarea.titulo,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -189,9 +189,9 @@ fun TareaDetails(
                     )
                 )
             )
-            TareaDetailsRow(
+            TipoTareaDetailsRow(
                 labelResID = R.string.descripcion,
-                itemDetail = tarea.descripcion,
+                tipoTareaDetail = TipoTarea.descripcion,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -199,9 +199,9 @@ fun TareaDetails(
                     )
                 )
             )
-            TareaDetailsRow(
+            TipoTareaDetailsRow(
                 labelResID = R.string.id_tipo_tarea,
-                itemDetail = tarea.idTipoTarea.toString(),
+                tipoTareaDetail = tipoTarea.idTipoTarea.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -215,7 +215,7 @@ fun TareaDetails(
 }
 
 @Composable
-private fun TareaDetailsRow(
+private fun TipoTareaDetailsRow(
     @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
@@ -247,10 +247,11 @@ private fun DeleteConfirmationDialog(
 
 @Preview(showBackground = true)
 @Composable
-fun ItemDetailsScreenPreview() {
+fun TipoTareaDetailsScreenPreview() {
     InventoryTheme {
-        TareaDetailsBody(TareaDetailsUiState(
-            outOfStock = true, tareaDetails = TareaDetails(1, "Pen", "$100", 10)
+        TipoTareaDetailsBody(
+            TipoTareaDetailsUiState(
+      modificar si cuando este el tipotarea      outOfStock = true, tipoTareaDetails = com.example.inventory.ui.tarea.TareaDetails(1, "Pen", "$100", 10)
         ), //onSellItem = {},
             onDelete = {})
     }

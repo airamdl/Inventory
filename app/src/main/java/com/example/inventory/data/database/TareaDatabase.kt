@@ -33,6 +33,7 @@ abstract class TareaDatabase : RoomDatabase() {
 
     abstract fun tareaDao(): TareaDao
     abstract fun tipoTareaDao(): TipoTareaDao
+
     companion object {
         @Volatile
         private var Instance: TareaDatabase? = null
