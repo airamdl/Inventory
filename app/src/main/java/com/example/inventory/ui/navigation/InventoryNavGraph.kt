@@ -28,7 +28,7 @@ import com.example.inventory.ui.home.HomeScreen
 import com.example.inventory.ui.tarea.ItemDetailsDestination
 import com.example.inventory.ui.tarea.ItemDetailsScreen
 import com.example.inventory.ui.tarea.ItemEditDestination
-import com.example.inventory.ui.tarea.ItemEditScreen
+import com.example.inventory.ui.tarea.TareaEditScreen
 import com.example.inventory.ui.tarea.ItemEntryDestination
 import com.example.inventory.ui.tarea.ItemEntryScreen
 
@@ -76,7 +76,7 @@ fun InventoryNavHost(
                 type = NavType.IntType
             })
         ) {
-            ItemEditScreen(
+            TareaEditScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

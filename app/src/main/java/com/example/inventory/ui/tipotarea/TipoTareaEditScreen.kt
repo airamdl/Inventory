@@ -24,7 +24,7 @@ import com.example.inventory.ui.tarea.ItemEntryBody
 import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
-object ItemEditDestination : NavigationDestination {
+object TipoTareaEditDestination : NavigationDestination {
     override val route = "tipo_tarea_edit"
     override val titleRes = R.string.edit_tarea_title
     const val tipoTareaIdArg = "tipoTareaId"
@@ -43,7 +43,7 @@ fun ItemEditScreen(
     Scaffold(
         topBar = {
             InventoryTopAppBar(
-                title = stringResource(ItemEditDestination.titleRes),
+                title = stringResource(TipoTareaEditDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = onNavigateUp
             )
@@ -54,12 +54,8 @@ fun ItemEditScreen(
             tipoTareaUiState = viewModel.tipoTareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
-                // Note: If the user rotates the screen very fast, the operation may get cancelled
-                // and the item may not be updated in the Database. This is because when config
-                // change occurs, the Activity will be recreated and the rememberCoroutineScope will
-                // be cancelled - since the scope is bound to composition.
                 coroutineScope.launch {
-                    viewModel.updateItem()
+                    viewModel.updateTipoTarea()
                     navigateBack()
                 }
             },
@@ -76,8 +72,8 @@ fun ItemEditScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ItemEditScreenPreview() {
+fun TipoTareaEditScreenPreview() {
     InventoryTheme {
-        ItemEditScreen(navigateBack = { /*Do nothing*/ }, onNavigateUp = { /*Do nothing*/ })
+        ItemEditScreen(navigateBack = { /**/ }, onNavigateUp = { /**/ })
     }
 }

@@ -55,7 +55,7 @@ class TipoTareaEditViewModel(
     /**
      * Update the item in the [ItemsRepository]'s data source
      */
-    suspend fun updateItem() {
+    suspend fun updateTipoTarea() {
         if (validateInput(tipoTareaUiState.tareaDetails)) {
             tareasRepository.updateTarea(tipoTareaUiState.tareaDetails.toItem())
         }
