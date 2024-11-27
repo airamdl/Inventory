@@ -25,7 +25,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.inventory.TareaApplication
 import com.example.inventory.ui.home.HomeViewModel
 import com.example.inventory.ui.tarea.ItemDetailsViewModel
-import com.example.inventory.ui.tarea.ItemEditViewModel
+import com.example.inventory.ui.tarea.TipoTareaEditViewModel
 import com.example.inventory.ui.tarea.ItemEntryViewModel
 
 /**
@@ -35,7 +35,7 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         // Initializer for ItemEditViewModel
         initializer {
-            ItemEditViewModel(
+            TipoTareaEditViewModel(
                 this.createSavedStateHandle(),
                 inventoryApplication().container.tareasRepository
             )

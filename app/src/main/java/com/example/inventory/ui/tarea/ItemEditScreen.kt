@@ -35,7 +35,7 @@ fun ItemEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ItemEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: TipoTareaEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
@@ -49,7 +49,7 @@ fun ItemEditScreen(
         modifier = modifier
     ) { innerPadding ->
         ItemEntryBody(
-            tareaUiState = viewModel.tareaUiState,
+            tipoTareaUiState = viewModel.tipoTareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled

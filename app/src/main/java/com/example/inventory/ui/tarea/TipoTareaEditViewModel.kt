@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel to retrieve and update an item from the [ItemsRepository]'s data source.
  */
-class ItemEditViewModel(
+class TipoTareaEditViewModel(
     savedStateHandle: SavedStateHandle,
     private val tareasRepository: TareasRepository
 ) : ViewModel() {
@@ -38,14 +38,14 @@ class ItemEditViewModel(
     /**
      * Holds current item ui state
      */
-    var tareaUiState by mutableStateOf(TareaUiState())
+    var tipoTareaUiState by mutableStateOf(TareaUiState())
         private set
 
     private val tareaId: Int = checkNotNull(savedStateHandle[ItemEditDestination.tareaIdArg])
 
     init {
         viewModelScope.launch {
-            tareaUiState = tareasRepository.getTareaStream(tareaId)
+            tipoTareaUiState = tareasRepository.getTareaStream(tareaId)
                 .filterNotNull()
                 .first()
                 .toItemUiState(true)
@@ -56,21 +56,21 @@ class ItemEditViewModel(
      * Update the item in the [ItemsRepository]'s data source
      */
     suspend fun updateItem() {
-        if (validateInput(tareaUiState.tareaDetails)) {
-            tareasRepository.updateTarea(tareaUiState.tareaDetails.toItem())
+        if (validateInput(tipoTareaUiState.tareaDetails)) {
+            tareasRepository.updateTarea(tipoTareaUiState.tareaDetails.toItem())
         }
     }
 
     /**
-     * Updates the [tareaUiState] with the value provided in the argument. This method also triggers
+     * Updates the [tipoTareaUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
     fun updateUiState(tareaDetails: TareaDetails) {
-        tareaUiState =
+        tipoTareaUiState =
             TareaUiState(tareaDetails = tareaDetails, isEntryValid = validateInput(tareaDetails))
     }
 
-    private fun validateInput(uiState: TareaDetails = tareaUiState.tareaDetails): Boolean {
+    private fun validateInput(uiState: TareaDetails = tipoTareaUiState.tareaDetails): Boolean {
         return with(uiState) {
             titulo.isNotBlank() && descripcion.isNotBlank() && idTipoTarea.toString().isNotBlank()
         }

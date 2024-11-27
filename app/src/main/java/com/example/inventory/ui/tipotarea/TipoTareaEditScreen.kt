@@ -19,16 +19,16 @@ import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.tarea.ItemEditViewModel
+import com.example.inventory.ui.tarea.TipoTareaEditViewModel
 import com.example.inventory.ui.tarea.ItemEntryBody
 import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 
 object ItemEditDestination : NavigationDestination {
-    override val route = "item_edit"
+    override val route = "tipo_tarea_edit"
     override val titleRes = R.string.edit_tarea_title
-    const val tareaIdArg = "tareaId"
-    val routeWithArgs = "$route/{$tareaIdArg}"
+    const val tipoTareaIdArg = "tipoTareaId"
+    val routeWithArgs = "$route/{$tipoTareaIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +37,7 @@ fun ItemEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ItemEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: TipoTareaEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
@@ -51,7 +51,7 @@ fun ItemEditScreen(
         modifier = modifier
     ) { innerPadding ->
         ItemEntryBody(
-            tareaUiState = viewModel.tareaUiState,
+            tipoTareaUiState = viewModel.tipoTareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled

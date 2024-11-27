@@ -72,7 +72,7 @@ fun ItemEntryScreen(
         }
     ) { innerPadding ->
         ItemEntryBody(
-            tareaUiState = viewModel.tareaUiState,
+            tipoTareaUiState = viewModel.tareaUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 // Note: If the user rotates the screen very fast, the operation may get cancelled
@@ -98,7 +98,7 @@ fun ItemEntryScreen(
 
 @Composable
 fun ItemEntryBody(
-    tareaUiState: TareaUiState,
+    tipoTareaUiState: TareaUiState,
     onItemValueChange: (TareaDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -108,13 +108,13 @@ fun ItemEntryBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large))
     ) {
         ItemInputForm(
-            tareaDetails = tareaUiState.tareaDetails,
+            tareaDetails = tipoTareaUiState.tareaDetails,
             onValueChange = onItemValueChange,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSaveClick,
-            enabled = tareaUiState.isEntryValid,
+            enabled = tipoTareaUiState.isEntryValid,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -189,7 +189,7 @@ fun ItemInputForm(
 @Composable
 private fun ItemEntryScreenPreview() {
     InventoryTheme {
-        ItemEntryBody(tareaUiState = TareaUiState(
+        ItemEntryBody(tipoTareaUiState = TareaUiState(
             TareaDetails(
                 titulo = "titulo tarea", descripcion = "10.00", idTipoTarea = 5
             )
