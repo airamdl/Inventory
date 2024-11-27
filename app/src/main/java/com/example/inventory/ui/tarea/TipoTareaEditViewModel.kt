@@ -45,7 +45,7 @@ class TipoTareaEditViewModel(
 
     init {
         viewModelScope.launch {
-            tipoTareaUiState = tareasRepository.getTareaStream(tareaId)
+            tipoTareaUiState = tipoTareasRepository.getTareaStream(tareaId)
                 .filterNotNull()
                 .first()
                 .toItemUiState(true)
